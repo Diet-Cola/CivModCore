@@ -20,12 +20,4 @@ public class ConfigCommand extends AikarCommand {
 		PlayerSettingAPI.getMainMenu().showScreen(player);
 	}
 
-	@Subcommand("save")
-	@Description("Save all settings to the file.")
-	@CommandPermission("cmc.config.save")
-	public void save(CommandSender sender) {
-		PlayerSettingAPI.saveAll();
-		sender.sendMessage(ChatColor.GREEN + "/config has been saved.");
-	}
-
 }

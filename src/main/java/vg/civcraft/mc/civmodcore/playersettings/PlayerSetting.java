@@ -8,9 +8,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.UUID;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 import vg.civcraft.mc.civmodcore.inventory.items.ItemUtils;
 import vg.civcraft.mc.civmodcore.inventory.items.MaterialUtils;
@@ -20,8 +25,7 @@ import vg.civcraft.mc.civmodcore.playersettings.gui.MenuSection;
  * Contains a value for every players for one setting
  */
 public abstract class PlayerSetting<T> {
-
-	private Map<UUID, T> values;
+	
 	private T defaultValue;
 	private ItemStack visualization;
 	private String description;
@@ -34,8 +38,6 @@ public abstract class PlayerSetting<T> {
 	public PlayerSetting(JavaPlugin owningPlugin, T defaultValue, String niceName, String identifier, ItemStack gui,
 			String description, boolean canBeChangedByPlayer) {
 		Preconditions.checkNotNull(gui, "GUI ItemStack can not be null.");
-
-		values = new TreeMap<>();
 		this.defaultValue = defaultValue;
 		this.owningPlugin = owningPlugin;
 		this.niceName = niceName;
@@ -60,14 +62,6 @@ public abstract class PlayerSetting<T> {
 	 * @return
 	 */
 	public abstract T deserialize(String serial);
-
-	Map<String, String> dumpAllSerialized() {
-		Map<String, String> result = new HashMap<>();
-		for (Entry<UUID, T> entry : values.entrySet()) {
-			result.put(entry.getKey().toString(), serialize(entry.getValue()));
-		}
-		return result;
-	}
 
 	/**
 	 * @return Textual description shown in the GUI for this setting
@@ -117,11 +111,7 @@ public abstract class PlayerSetting<T> {
 	 * @return Value for the player or default value
 	 */
 	public T getValue(UUID player) {
-		T value = values.get(player);
-		if (value == null) {
-			return defaultValue;
-		}
-		return value;
+		return getValue(Bukkit.getPlayer(player));
 	}
 
 	/**
@@ -132,7 +122,13 @@ public abstract class PlayerSetting<T> {
 	 * @return Value for the player or default value
 	 */
 	public T getValue(Player player) {
-		return getValue(player.getUniqueId());
+		Preconditions.checkNotNull(player);
+		List <MetadataValue> serialList = player.getMetadata(identifier);
+		if (serialList == null || serialList.isEmpty()) {
+			return defaultValue;
+		}
+		String serial = serialList.get(0).asString();
+		return deserialize(serial);
 	}
 	
 	/**
@@ -198,13 +194,7 @@ public abstract class PlayerSetting<T> {
 	 * @param value  New value
 	 */
 	public void setValue(UUID player, T value) {
-		if (listeners != null) {
-			T oldValue = getValue(player);
-			for(SettingChangeListener<T> listener: listeners) {
-				listener.handle(player, this, oldValue, value);
-			}
-		}
-		values.put(player, value);
+		setValue(Bukkit.getPlayer(player), value);
 	}
 
 	/**
@@ -216,7 +206,14 @@ public abstract class PlayerSetting<T> {
 	 * @param value  New value
 	 */
 	public void setValue(Player player, T value) {
-		setValue(player.getUniqueId(), value);
+		Preconditions.checkNotNull(player);
+		if (listeners != null) {
+			T oldValue = getValue(player);
+			for(SettingChangeListener<T> listener: listeners) {
+				listener.handle(player.getUniqueId(), this, oldValue, value);
+			}
+		}
+		player.setMetadata(identifier, new FixedMetadataValue(owningPlugin, serialize(value)));
 	}
 
 	/**

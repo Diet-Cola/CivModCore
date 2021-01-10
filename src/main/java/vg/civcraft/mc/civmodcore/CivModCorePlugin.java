@@ -128,7 +128,6 @@ public final class CivModCorePlugin extends ACivMod {
 		}
 		DialogManager.resetDialogs();
 		WorldTracker.reset();
-		PlayerSettingAPI.saveAll();
 		ConfigurationSerialization.unregisterClass(ManagedDatasource.class);
 		NBTSerialization.clearAllRegistrations();
 		if (this.manager != null) {
