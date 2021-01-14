@@ -2,10 +2,12 @@ package vg.civcraft.mc.civmodcore.playersettings;
 
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.TreeMap;
 import java.util.UUID;
 
@@ -26,6 +28,7 @@ import vg.civcraft.mc.civmodcore.playersettings.gui.MenuSection;
  */
 public abstract class PlayerSetting<T> {
 	
+	private Map<UUID, T> values;
 	private T defaultValue;
 	private ItemStack visualization;
 	private String description;
@@ -38,6 +41,7 @@ public abstract class PlayerSetting<T> {
 	public PlayerSetting(JavaPlugin owningPlugin, T defaultValue, String niceName, String identifier, ItemStack gui,
 			String description, boolean canBeChangedByPlayer) {
 		Preconditions.checkNotNull(gui, "GUI ItemStack can not be null.");
+		this.values = new ConcurrentHashMap<>();
 		this.defaultValue = defaultValue;
 		this.owningPlugin = owningPlugin;
 		this.niceName = niceName;
@@ -111,7 +115,11 @@ public abstract class PlayerSetting<T> {
 	 * @return Value for the player or default value
 	 */
 	public T getValue(UUID player) {
-		return getValue(Bukkit.getPlayer(player));
+		T value = values.get(player);
+		if (value == null) {
+			return defaultValue;
+		}
+		return value;
 	}
 
 	/**
@@ -122,13 +130,11 @@ public abstract class PlayerSetting<T> {
 	 * @return Value for the player or default value
 	 */
 	public T getValue(Player player) {
-		Preconditions.checkNotNull(player);
-		List <MetadataValue> serialList = player.getMetadata(identifier);
-		if (serialList == null || serialList.isEmpty()) {
-			return defaultValue;
-		}
-		String serial = serialList.get(0).asString();
-		return deserialize(serial);
+		return getValue(player.getUniqueId());
+	}
+	
+	public boolean hasValue(UUID player) {
+		return values.containsKey(player);
 	}
 	
 	/**
@@ -194,7 +200,13 @@ public abstract class PlayerSetting<T> {
 	 * @param value  New value
 	 */
 	public void setValue(UUID player, T value) {
-		setValue(Bukkit.getPlayer(player), value);
+		if (listeners != null) {
+			T oldValue = getValue(player);
+			for(SettingChangeListener<T> listener: listeners) {
+				listener.handle(player, this, oldValue, value);
+			}
+		}
+		values.put(player, value);
 	}
 
 	/**
@@ -206,14 +218,7 @@ public abstract class PlayerSetting<T> {
 	 * @param value  New value
 	 */
 	public void setValue(Player player, T value) {
-		Preconditions.checkNotNull(player);
-		if (listeners != null) {
-			T oldValue = getValue(player);
-			for(SettingChangeListener<T> listener: listeners) {
-				listener.handle(player.getUniqueId(), this, oldValue, value);
-			}
-		}
-		player.setMetadata(identifier, new FixedMetadataValue(owningPlugin, serialize(value)));
+		setValue(player.getUniqueId(), value);
 	}
 
 	/**

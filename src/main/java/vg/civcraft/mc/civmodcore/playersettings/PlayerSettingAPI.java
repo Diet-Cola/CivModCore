@@ -4,10 +4,14 @@ import com.google.common.base.Preconditions;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import vg.civcraft.mc.civmodcore.CivModCorePlugin;
@@ -22,9 +26,9 @@ import vg.civcraft.mc.civmodcore.playersettings.impl.AltConsistentSetting;
  */
 public final class PlayerSettingAPI {
 
-	private static final Map<String, PlayerSetting<?>> SETTINGS_BY_IDENTIFIER = new HashMap<>();
+	private static final Map<String, PlayerSetting<?>> SETTINGS_BY_IDENTIFIER = new ConcurrentHashMap<>();
 
-	private static final Map<String, List<PlayerSetting<?>>> SETTINGS_BY_PLUGIN = new HashMap<>();
+	private static final Map<String, List<PlayerSetting<?>>> SETTINGS_BY_PLUGIN = new ConcurrentHashMap<>();
 
 	private static final MenuSection MAIN_MENU = new MenuSection("Config", "", null);
 	
@@ -35,6 +39,10 @@ public final class PlayerSettingAPI {
 	 */
 	public static MenuSection getMainMenu() {
 		return MAIN_MENU;
+	}
+	
+	public static Collection<PlayerSetting<?>> getAllSettings() {
+		return Collections.unmodifiableCollection(SETTINGS_BY_IDENTIFIER.values());
 	}
 
 	/**
