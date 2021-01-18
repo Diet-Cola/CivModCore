@@ -1,6 +1,9 @@
 package vg.civcraft.mc.civmodcore.playersettings;
 
 import com.google.common.base.Preconditions;
+
+import net.minecraft.server.v1_16_R3.IAsyncTaskHandler;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -206,6 +209,15 @@ public abstract class PlayerSetting<T> {
 				listener.handle(player, this, oldValue, value);
 			}
 		}
+		values.put(player, value);
+	}
+	
+	/**
+	 * Used for initial setting of a players value when their data is loaded. Does not call any setting change listeners
+	 * @param player UUID of the player whose data is being initialized
+	 * @param value Value to initialize to
+	 */
+	public void setValueInternal(UUID player, T value) {
 		values.put(player, value);
 	}
 
