@@ -1,4 +1,4 @@
-package vg.civcraft.mc.civmodcore.serialization;
+package vg.civcraft.mc.civmodcore.nbt;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

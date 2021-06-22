@@ -1,4 +1,4 @@
-package vg.civcraft.mc.civmodcore.serialization;
+package vg.civcraft.mc.civmodcore.nbt;
 
 /**
  * Class to be used during testing as an example serializable.

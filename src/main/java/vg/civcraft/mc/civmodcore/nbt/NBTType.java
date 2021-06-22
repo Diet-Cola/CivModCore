@@ -1,7 +1,20 @@
-package vg.civcraft.mc.civmodcore.serialization;
+package vg.civcraft.mc.civmodcore.nbt;
+
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 /**
- * NBT Type IDs for usage with {@link NBTCompound#hasKeyOfType(String, int)}.
+ * NBT Type IDs for usage with:
+ *
+ * <ul>
+ *     <li>{@link NBTTagCompound#hasKeyOfType(String, int)}</li>
+ *     <li>{@link NBTBase#getTypeId()}</li>
+ *     <li>{@link NBTTagList#e()} // list element type</li>
+ *     <li>etc...</li>
+ * </ul>
+ *
+ * This is a better version of {@link org.bukkit.craftbukkit.v1_17_R1.util.CraftMagicNumbers.NBT}
  */
 public final class NBTType {
 

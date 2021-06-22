@@ -10,7 +10,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import vg.civcraft.mc.civmodcore.chat.ChatUtils;
 import vg.civcraft.mc.civmodcore.inventory.items.ItemUtils;
-import vg.civcraft.mc.civmodcore.serialization.NBTCompound;
 import vg.civcraft.mc.civmodcore.utilities.NullUtils;
 
 public class ItemMetaTests {
