@@ -30,7 +30,7 @@ import vg.civcraft.mc.civmodcore.areas.EllipseArea;
 import vg.civcraft.mc.civmodcore.areas.GlobalYLimitedArea;
 import vg.civcraft.mc.civmodcore.areas.IArea;
 import vg.civcraft.mc.civmodcore.areas.RectangleArea;
-import vg.civcraft.mc.civmodcore.itemHandling.ItemMap;
+import vg.civcraft.mc.civmodcore.inventory.items.ItemMap;
 
 public class ConfigParsing {
 
