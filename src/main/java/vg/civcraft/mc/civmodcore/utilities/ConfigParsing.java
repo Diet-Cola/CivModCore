@@ -26,10 +26,10 @@ import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
-import vg.civcraft.mc.civmodcore.areas.EllipseArea;
-import vg.civcraft.mc.civmodcore.areas.GlobalYLimitedArea;
-import vg.civcraft.mc.civmodcore.areas.IArea;
-import vg.civcraft.mc.civmodcore.areas.RectangleArea;
+import vg.civcraft.mc.civmodcore.world.model.EllipseArea;
+import vg.civcraft.mc.civmodcore.world.model.GlobalYLimitedArea;
+import vg.civcraft.mc.civmodcore.world.model.IArea;
+import vg.civcraft.mc.civmodcore.world.model.RectangleArea;
 import vg.civcraft.mc.civmodcore.inventory.items.ItemMap;
 
 public class ConfigParsing {
