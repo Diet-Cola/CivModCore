@@ -1,4 +1,4 @@
-package vg.civcraft.mc.civmodcore;
+package vg.civcraft.mc.civmodcore.config;
 
 import com.google.common.base.Strings;
 import java.util.ArrayList;
@@ -9,21 +9,22 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.Plugin;
 import vg.civcraft.mc.civmodcore.inventory.items.MaterialUtils;
 
 /**
  * This is a config parsing class intended to make handling configs a little easier, and automatically parse commonly
  * seen things within civ configs.
  */
-public class CoreConfigManager {
+public class ConfigParser {
 
-	protected final ACivMod plugin;
+	protected final Plugin plugin;
 	protected final Logger logger;
 
 	private boolean debug;
 	private boolean logReplies;
 
-	public CoreConfigManager(ACivMod plugin) {
+	public ConfigParser(final Plugin plugin) {
 		this.plugin = plugin;
 		this.logger = plugin.getLogger();
 	}
@@ -35,22 +36,22 @@ public class CoreConfigManager {
 	 * @return Returns true if the config was successfully parsed.
 	 */
 	public final boolean parse() {
-		this.plugin.info(ChatColor.BLUE + "Parsing config.");
+		this.logger.info(ChatColor.BLUE + "Parsing config.");
 		this.plugin.saveDefaultConfig();
 		FileConfiguration config = this.plugin.getConfig();
 		// Parse debug value
 		this.debug = config.getBoolean("debug", false);
-		this.plugin.info("Debug mode: " + (this.debug ? "enabled" : "disabled"));
+		this.logger.info("Debug mode: " + (this.debug ? "enabled" : "disabled"));
 		// Parse reply logging value
 		this.logReplies = config.getBoolean("logReplies", false);
-		this.plugin.info("Logging replies: " + (this.logReplies ? "enabled" : "disabled"));
+		this.logger.info("Logging replies: " + (this.logReplies ? "enabled" : "disabled"));
 		// Allow child class parsing
 		boolean worked = parseInternal(config);
 		if (worked) {
-			plugin.info(ChatColor.BLUE + "Config parsed.");
+			this.logger.info(ChatColor.BLUE + "Config parsed.");
 		}
 		else {
-			plugin.warning("Failed to parse config!");
+			this.logger.warning("Failed to parse config!");
 		}
 		return worked;
 	}
@@ -97,7 +98,8 @@ public class CoreConfigManager {
 	 * @param key The key of the list.
 	 * @return Returns a list of materials, or null.
 	 */
-	protected final List<Material> parseMaterialList(ConfigurationSection config, String key) {
+	protected final List<Material> parseMaterialList(final ConfigurationSection config,
+													 final String key) {
 		return parseList(config, key, slug -> {
 			Material found = MaterialUtils.getMaterial(slug);
 			if (found == null) {
@@ -117,7 +119,9 @@ public class CoreConfigManager {
 	 * @param parser The parser to convert the string value into the correct type.
 	 * @return Returns a list, or null.
 	 */
-	protected static <T> List<T> parseList(ConfigurationSection config, String key, Function<String, T> parser) {
+	protected static <T> List<T> parseList(final ConfigurationSection config,
+										   final String key,
+										   final Function<String, T> parser) {
 		if (config == null || Strings.isNullOrEmpty(key) || !config.isList(key) || parser == null) {
 			return null;
 		}
