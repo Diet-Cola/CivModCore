@@ -44,7 +44,7 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemFactory;
+import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemFactory;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -464,6 +464,11 @@ public class PseudoServer implements Server {
 	@Override
 	public int broadcast(@NotNull final String s, @NotNull final String s1) {
 		throw new NotImplementedException();
+	}
+
+	@Override
+	public int broadcast(@NotNull Component component) {
+		return 0;
 	}
 
 	@Override
