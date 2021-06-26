@@ -6,6 +6,8 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -14,8 +16,10 @@ import lombok.experimental.UtilityClass;
 import net.minecraft.nbt.NBTCompressedStreamTools;
 import net.minecraft.nbt.NBTReadLimiter;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
+import org.bukkit.craftbukkit.v1_17_R1.util.CraftNBTTagConfigSerializer;
 import org.bukkit.inventory.ItemStack;
 import vg.civcraft.mc.civmodcore.inventory.items.ItemUtils;
 import vg.civcraft.mc.civmodcore.utilities.CivLogger;
@@ -65,6 +69,14 @@ public class NBTSerialization {
 			return null;
 		}
 		return nmsItem.getBukkitStack();
+	}
+
+	public static NBTTagCompound fromMap(final Map<String, Object> data) {
+		return (NBTTagCompound) CraftNBTTagConfigSerializer.deserialize(data);
+	}
+
+	public static NBTTagList fromList(final List<Object> data) {
+		return (NBTTagList) CraftNBTTagConfigSerializer.deserialize(data);
 	}
 
 	/**

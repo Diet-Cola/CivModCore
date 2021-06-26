@@ -626,11 +626,12 @@ public class ItemMap {
 	}
 
 	public static NBTTagCompound mapToNBT(NBTTagCompound base, Map<String, Object> map) {
-		return TagManager.mapToNBT(base, map);
+		return base.a(NBTSerialization.fromMap(map));
 	}
 
 	public static NBTTagList listToNBT(NBTTagList base, List<Object> list) {
-		return TagManager.listToNBT(base, list);
+		base.addAll(NBTSerialization.fromList(list));
+		return base;
 	}
 
 }
