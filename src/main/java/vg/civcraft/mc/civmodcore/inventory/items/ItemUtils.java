@@ -35,6 +35,8 @@ public final class ItemUtils {
 	 * Loads item names from configurable files and requests any custom item names programmatically from plugins.
 	 *
 	 * @param plugin The CivModCore instance plugin.
+	 *
+	 * TODO: Discuss whether this is still necessary given {@link ItemStack#getI18NDisplayName()}.
 	 */
 	public static void loadItemNames(final CivModCorePlugin plugin) {
 		final var logger = CivLogger.getLogger(ItemUtils.class);
