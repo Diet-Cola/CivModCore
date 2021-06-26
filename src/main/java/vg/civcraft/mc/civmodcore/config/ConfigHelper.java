@@ -4,8 +4,10 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
+import lombok.experimental.UtilityClass;
 import org.bukkit.configuration.ConfigurationSection;
 
+@UtilityClass
 public final class ConfigHelper {
 
 	/**

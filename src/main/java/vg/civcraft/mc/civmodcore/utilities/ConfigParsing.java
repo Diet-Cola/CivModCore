@@ -8,6 +8,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -32,6 +33,7 @@ import vg.civcraft.mc.civmodcore.world.model.IArea;
 import vg.civcraft.mc.civmodcore.world.model.RectangleArea;
 import vg.civcraft.mc.civmodcore.inventory.items.ItemMap;
 
+@UtilityClass
 public class ConfigParsing {
 
 	private static final Logger log = Bukkit.getLogger();

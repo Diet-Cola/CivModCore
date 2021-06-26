@@ -2,6 +2,7 @@ package vg.civcraft.mc.civmodcore.nbt;
 
 import java.util.UUID;
 import lombok.experimental.ExtensionMethod;
+import lombok.experimental.UtilityClass;
 import net.minecraft.nbt.NBTTagCompound;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -9,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import vg.civcraft.mc.civmodcore.inventory.items.ItemUtils;
 import vg.civcraft.mc.civmodcore.nbt.extensions.NBTTagCompoundExtensions;
 
+@UtilityClass
 @ExtensionMethod(NBTTagCompoundExtensions.class)
 public final class NBTHelper {
 
