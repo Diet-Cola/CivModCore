@@ -14,6 +14,8 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.minecraft.SharedConstants;
@@ -70,8 +72,6 @@ import org.bukkit.plugin.messaging.Messenger;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.util.CachedServerIcon;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class PseudoServer implements Server {
@@ -91,27 +91,27 @@ public class PseudoServer implements Server {
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Logger getLogger() {
 		return LOGGER;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public ItemFactory getItemFactory() {
 		return CraftItemFactory.instance();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public UnsafeValues getUnsafe() {
 		return CraftMagicNumbers.INSTANCE;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public BlockData createBlockData(@NotNull final Material material) {
+	public BlockData createBlockData(@Nonnull final Material material) {
 		return CraftBlockData.newData(material, null);
 	}
 
@@ -119,31 +119,31 @@ public class PseudoServer implements Server {
 	// Not implemented
 	// ------------------------------------------------------------
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getName() {
 		return getClass().getSimpleName();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getVersion() {
 		return getClass().getPackage().getImplementationVersion();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getBukkitVersion() {
 		return Versioning.getBukkitVersion();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getMinecraftVersion() {
 		return SharedConstants.getGameVersion().getName();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Collection<? extends Player> getOnlinePlayers() {
 		throw new NotImplementedException();
@@ -169,13 +169,13 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getIp() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getWorldType() {
 		throw new NotImplementedException();
@@ -211,7 +211,7 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Set<OfflinePlayer> getWhitelistedPlayers() {
 		throw new NotImplementedException();
@@ -223,17 +223,17 @@ public class PseudoServer implements Server {
 	}
 
 	@Override
-	public int broadcastMessage(@NotNull final String s) {
+	public int broadcastMessage(@Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getUpdateFolder() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public File getUpdateFolderFile() {
 		throw new NotImplementedException();
@@ -271,53 +271,53 @@ public class PseudoServer implements Server {
 
 	@Nullable
 	@Override
-	public Player getPlayer(@NotNull final String s) {
+	public Player getPlayer(@Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
 	@Nullable
 	@Override
-	public Player getPlayerExact(@NotNull final String s) {
+	public Player getPlayerExact(@Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public List<Player> matchPlayer(@NotNull final String s) {
+	public List<Player> matchPlayer(@Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
 	@Nullable
 	@Override
-	public Player getPlayer(@NotNull final UUID uuid) {
+	public Player getPlayer(@Nonnull final UUID uuid) {
 		throw new NotImplementedException();
 	}
 
 	@Nullable
 	@Override
-	public UUID getPlayerUniqueId(@NotNull final String s) {
+	public UUID getPlayerUniqueId(@Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public PluginManager getPluginManager() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public BukkitScheduler getScheduler() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public ServicesManager getServicesManager() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<World> getWorlds() {
 		throw new NotImplementedException();
@@ -325,35 +325,35 @@ public class PseudoServer implements Server {
 
 	@Nullable
 	@Override
-	public World createWorld(@NotNull final WorldCreator worldCreator) {
+	public World createWorld(@Nonnull final WorldCreator worldCreator) {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public boolean unloadWorld(@NotNull final String s, final boolean b) {
+	public boolean unloadWorld(@Nonnull final String s, final boolean b) {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public boolean unloadWorld(@NotNull final World world, final boolean b) {
-		throw new NotImplementedException();
-	}
-
-	@Nullable
-	@Override
-	public World getWorld(@NotNull final String s) {
+	public boolean unloadWorld(@Nonnull final World world, final boolean b) {
 		throw new NotImplementedException();
 	}
 
 	@Nullable
 	@Override
-	public World getWorld(@NotNull final UUID uuid) {
+	public World getWorld(@Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
 	@Nullable
 	@Override
-	public World getWorld(@NotNull final NamespacedKey namespacedKey) {
+	public World getWorld(@Nonnull final UUID uuid) {
+		throw new NotImplementedException();
+	}
+
+	@Nullable
+	@Override
+	public World getWorld(@Nonnull final NamespacedKey namespacedKey) {
 		throw new NotImplementedException();
 	}
 
@@ -363,21 +363,21 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public MapView createMap(@NotNull final World world) {
+	public MapView createMap(@Nonnull final World world) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public ItemStack createExplorerMap(@NotNull final World world, @NotNull final Location location, @NotNull final StructureType structureType) {
+	public ItemStack createExplorerMap(@Nonnull final World world, @Nonnull final Location location, @Nonnull final StructureType structureType) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public ItemStack createExplorerMap(@NotNull final World world, @NotNull final Location location, @NotNull final StructureType structureType, final int i, final boolean b) {
+	public ItemStack createExplorerMap(@Nonnull final World world, @Nonnull final Location location, @Nonnull final StructureType structureType, final int i, final boolean b) {
 		throw new NotImplementedException();
 	}
 
@@ -393,7 +393,7 @@ public class PseudoServer implements Server {
 
 	@Nullable
 	@Override
-	public PluginCommand getPluginCommand(@NotNull final String s) {
+	public PluginCommand getPluginCommand(@Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
@@ -403,7 +403,7 @@ public class PseudoServer implements Server {
 	}
 
 	@Override
-	public boolean dispatchCommand(@NotNull final CommandSender commandSender, @NotNull final String s) throws CommandException {
+	public boolean dispatchCommand(@Nonnull final CommandSender commandSender, @Nonnull final String s) throws CommandException {
 		throw new NotImplementedException();
 	}
 
@@ -412,19 +412,19 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public List<Recipe> getRecipesFor(@NotNull final ItemStack itemStack) {
+	public List<Recipe> getRecipesFor(@Nonnull final ItemStack itemStack) {
 		throw new NotImplementedException();
 	}
 
 	@Nullable
 	@Override
-	public Recipe getRecipe(@NotNull final NamespacedKey namespacedKey) {
+	public Recipe getRecipe(@Nonnull final NamespacedKey namespacedKey) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Iterator<Recipe> recipeIterator() {
 		throw new NotImplementedException();
@@ -441,11 +441,11 @@ public class PseudoServer implements Server {
 	}
 
 	@Override
-	public boolean removeRecipe(@NotNull final NamespacedKey namespacedKey) {
+	public boolean removeRecipe(@Nonnull final NamespacedKey namespacedKey) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Map<String, String[]> getCommandAliases() {
 		throw new NotImplementedException();
@@ -482,155 +482,155 @@ public class PseudoServer implements Server {
 	}
 
 	@Override
-	public int broadcast(@NotNull final String s, @NotNull final String s1) {
+	public int broadcast(@Nonnull final String s, @Nonnull final String s1) {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public int broadcast(@NotNull Component component) {
+	public int broadcast(@Nonnull Component component) {
 		return 0;
 	}
 
 	@Override
-	public int broadcast(@NotNull final Component component, @NotNull final String s) {
+	public int broadcast(@Nonnull final Component component, @Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public OfflinePlayer getOfflinePlayer(@NotNull final String s) {
+	public OfflinePlayer getOfflinePlayer(@Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
 	@Nullable
 	@Override
-	public OfflinePlayer getOfflinePlayerIfCached(@NotNull final String s) {
+	public OfflinePlayer getOfflinePlayerIfCached(@Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public OfflinePlayer getOfflinePlayer(@NotNull final UUID uuid) {
+	public OfflinePlayer getOfflinePlayer(@Nonnull final UUID uuid) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Set<String> getIPBans() {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public void banIP(@NotNull final String s) {
+	public void banIP(@Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public void unbanIP(@NotNull final String s) {
+	public void unbanIP(@Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Set<OfflinePlayer> getBannedPlayers() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public BanList getBanList(@NotNull final BanList.Type type) {
+	public BanList getBanList(@Nonnull final BanList.Type type) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Set<OfflinePlayer> getOperators() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public GameMode getDefaultGameMode() {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public void setDefaultGameMode(@NotNull final GameMode gameMode) {
+	public void setDefaultGameMode(@Nonnull final GameMode gameMode) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public ConsoleCommandSender getConsoleSender() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public File getWorldContainer() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public OfflinePlayer[] getOfflinePlayers() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Messenger getMessenger() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public HelpMap getHelpMap() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, @NotNull final InventoryType inventoryType) {
+	public Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, @Nonnull final InventoryType inventoryType) {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public @NotNull Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, @NotNull final InventoryType inventoryType, @NotNull final Component component) {
+	public @Nonnull Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, @Nonnull final InventoryType inventoryType, @Nonnull final Component component) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, @NotNull final InventoryType inventoryType, @NotNull final String s) {
+	public Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, @Nonnull final InventoryType inventoryType, @Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, final int i) throws IllegalArgumentException {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, final int i, @NotNull final Component component) throws IllegalArgumentException {
+	public Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, final int i, @Nonnull final Component component) throws IllegalArgumentException {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, final int i, @NotNull final String s) throws IllegalArgumentException {
+	public Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, final int i, @Nonnull final String s) throws IllegalArgumentException {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Merchant createMerchant(@Nullable final Component component) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Merchant createMerchant(@Nullable final String s) {
 		throw new NotImplementedException();
@@ -667,11 +667,11 @@ public class PseudoServer implements Server {
 	}
 
 	@Override
-	public @NotNull Component motd() {
+	public @Nonnull Component motd() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getMotd() {
 		throw new NotImplementedException();
@@ -688,13 +688,13 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Warning.WarningState getWarningState() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public ScoreboardManager getScoreboardManager() {
 		throw new NotImplementedException();
@@ -706,15 +706,15 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public CachedServerIcon loadServerIcon(@NotNull final File file) throws IllegalArgumentException, Exception {
+	public CachedServerIcon loadServerIcon(@Nonnull final File file) throws IllegalArgumentException, Exception {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public CachedServerIcon loadServerIcon(@NotNull final BufferedImage bufferedImage) throws IllegalArgumentException, Exception {
+	public CachedServerIcon loadServerIcon(@Nonnull final BufferedImage bufferedImage) throws IllegalArgumentException, Exception {
 		throw new NotImplementedException();
 	}
 
@@ -728,31 +728,31 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public ChunkGenerator.ChunkData createChunkData(@NotNull final World world) {
+	public ChunkGenerator.ChunkData createChunkData(@Nonnull final World world) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public ChunkGenerator.ChunkData createVanillaChunkData(@NotNull final World world, final int i, final int i1) {
+	public ChunkGenerator.ChunkData createVanillaChunkData(@Nonnull final World world, final int i, final int i1) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public BossBar createBossBar(@Nullable final String s, @NotNull final BarColor barColor, @NotNull final BarStyle barStyle, @NotNull final BarFlag... barFlags) {
+	public BossBar createBossBar(@Nullable final String s, @Nonnull final BarColor barColor, @Nonnull final BarStyle barStyle, @Nonnull final BarFlag... barFlags) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public KeyedBossBar createBossBar(@NotNull final NamespacedKey namespacedKey, @Nullable final String s, @NotNull final BarColor barColor, @NotNull final BarStyle barStyle, @NotNull final BarFlag... barFlags) {
+	public KeyedBossBar createBossBar(@Nonnull final NamespacedKey namespacedKey, @Nullable final String s, @Nonnull final BarColor barColor, @Nonnull final BarStyle barStyle, @Nonnull final BarFlag... barFlags) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Iterator<KeyedBossBar> getBossBars() {
 		throw new NotImplementedException();
@@ -760,28 +760,28 @@ public class PseudoServer implements Server {
 
 	@Nullable
 	@Override
-	public KeyedBossBar getBossBar(@NotNull final NamespacedKey namespacedKey) {
+	public KeyedBossBar getBossBar(@Nonnull final NamespacedKey namespacedKey) {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public boolean removeBossBar(@NotNull final NamespacedKey namespacedKey) {
+	public boolean removeBossBar(@Nonnull final NamespacedKey namespacedKey) {
 		throw new NotImplementedException();
 	}
 
 	@Nullable
 	@Override
-	public Entity getEntity(@NotNull final UUID uuid) {
+	public Entity getEntity(@Nonnull final UUID uuid) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public double[] getTPS() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public long[] getTickTimes() {
 		throw new NotImplementedException();
@@ -792,7 +792,7 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public CommandMap getCommandMap() {
 		throw new NotImplementedException();
@@ -800,58 +800,58 @@ public class PseudoServer implements Server {
 
 	@Nullable
 	@Override
-	public Advancement getAdvancement(@NotNull final NamespacedKey namespacedKey) {
+	public Advancement getAdvancement(@Nonnull final NamespacedKey namespacedKey) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Iterator<Advancement> advancementIterator() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public BlockData createBlockData(@NotNull final Material material, @Nullable final Consumer<BlockData> consumer) {
+	public BlockData createBlockData(@Nonnull final Material material, @Nullable final Consumer<BlockData> consumer) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public BlockData createBlockData(@NotNull final String s) throws IllegalArgumentException {
+	public BlockData createBlockData(@Nonnull final String s) throws IllegalArgumentException {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public BlockData createBlockData(@Nullable final Material material, @Nullable final String s) throws IllegalArgumentException {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public <T extends Keyed> Tag<T> getTag(@NotNull final String s, @NotNull final NamespacedKey namespacedKey, @NotNull final Class<T> aClass) {
+	public <T extends Keyed> Tag<T> getTag(@Nonnull final String s, @Nonnull final NamespacedKey namespacedKey, @Nonnull final Class<T> aClass) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public <T extends Keyed> Iterable<Tag<T>> getTags(@NotNull final String s, @NotNull final Class<T> aClass) {
+	public <T extends Keyed> Iterable<Tag<T>> getTags(@Nonnull final String s, @Nonnull final Class<T> aClass) {
 		throw new NotImplementedException();
 	}
 
 	@Nullable
 	@Override
-	public LootTable getLootTable(@NotNull final NamespacedKey namespacedKey) {
+	public LootTable getLootTable(@Nonnull final NamespacedKey namespacedKey) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public List<Entity> selectEntities(@NotNull final CommandSender commandSender, @NotNull final String s) throws IllegalArgumentException {
+	public List<Entity> selectEntities(@Nonnull final CommandSender commandSender, @Nonnull final String s) throws IllegalArgumentException {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Spigot spigot() {
 		throw new NotImplementedException();
@@ -872,25 +872,25 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getPermissionMessage() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public PlayerProfile createProfile(@NotNull final UUID uuid) {
+	public PlayerProfile createProfile(@Nonnull final UUID uuid) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public PlayerProfile createProfile(@NotNull final String s) {
+	public PlayerProfile createProfile(@Nonnull final String s) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public PlayerProfile createProfile(@Nullable final UUID uuid, @Nullable final String s) {
 		throw new NotImplementedException();
@@ -906,30 +906,30 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public MobGoals getMobGoals() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public DatapackManager getDatapackManager() {
 		return null;
 	}
 
 	@Override
-	public void sendPluginMessage(@NotNull final Plugin plugin, @NotNull final String s, @NotNull final byte[] bytes) {
+	public void sendPluginMessage(@Nonnull final Plugin plugin, @Nonnull final String s, @Nonnull final byte[] bytes) {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Set<String> getListeningPluginChannels() {
 		throw new NotImplementedException();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Iterable<? extends Audience> audiences() {
 		throw new NotImplementedException();
