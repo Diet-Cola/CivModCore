@@ -81,6 +81,11 @@ public final class ChatUtils {
 	// Color parsing
 	// -------------------------------------------- //
 
+	/**
+	 * @deprecated Please use MiniMessage instead.
+	 * <a href="https://docs.adventure.kyori.net/minimessage.html">Read More</a>.
+	 */
+	@Deprecated
 	public static String parseColor(String string) {
 		string = parseColorAmp(string);
 		string = parseColorAcc(string);
@@ -88,15 +93,30 @@ public final class ChatUtils {
 		return string;
 	}
 
+	/**
+	 * @deprecated Please use MiniMessage instead.
+	 * <a href="https://docs.adventure.kyori.net/minimessage.html">Read More</a>.
+	 */
+	@Deprecated
 	public static String parseColorAmp(String string) {
 		string = string.replace("&&", "&");
 		return ChatColor.translateAlternateColorCodes('&', string);
 	}
 
+	/**
+	 * @deprecated Please use MiniMessage instead.
+	 * <a href="https://docs.adventure.kyori.net/minimessage.html">Read More</a>.
+	 */
+	@Deprecated
 	public static String parseColorAcc(String string) {
 		return ChatColor.translateAlternateColorCodes('`', string);
 	}
 
+	/**
+	 * @deprecated Please use MiniMessage instead.
+	 * <a href="https://docs.adventure.kyori.net/minimessage.html">Read More</a>.
+	 */
+	@Deprecated
 	public static String parseColorTags(String string) {
 		return string
 				.replace("<black>", ChatColor.BLACK.toString())
