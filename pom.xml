@@ -28,12 +28,6 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <artifactSet>
-                <excludes>
-                  <!-- Psuedo Provided -->
-                  <exclude>com.destroystokyo.paper:paper</exclude>
-                </excludes>
-              </artifactSet>
               <filters>
                 <filter>
                   <artifact>*:*</artifact>
@@ -54,6 +48,7 @@
       <groupId>io.papermc.paper</groupId>
       <artifactId>paper</artifactId>
       <version>1.17-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
       <exclusions>
         <exclusion>
           <groupId>io.papermc</groupId>

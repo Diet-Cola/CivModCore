@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import net.minecraft.SharedConstants;
+import net.minecraft.server.DispenserRegistry;
 import org.apache.commons.lang3.NotImplementedException;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
@@ -44,7 +46,10 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.craftbukkit.v1_17_R1.block.data.CraftBlockData;
 import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemFactory;
+import org.bukkit.craftbukkit.v1_17_R1.util.CraftMagicNumbers;
+import org.bukkit.craftbukkit.v1_17_R1.util.Versioning;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -65,7 +70,6 @@ import org.bukkit.plugin.messaging.Messenger;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.util.CachedServerIcon;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -79,6 +83,9 @@ public class PseudoServer implements Server {
 		if (Bukkit.getServer() == null) { // Ignore highlighter
 			final var previousLevel = LOGGER.getLevel();
 			LOGGER.setLevel(Level.OFF); // This is to prevent unnecessary logging
+			SharedConstants.a(); // SharedConstants.tryDetectVersion()
+			DispenserRegistry.init();
+			DispenserRegistry.c(); // DispenserRegistry.validate()
 			Bukkit.setServer(INSTANCE);
 			LOGGER.setLevel(previousLevel);
 		}
@@ -96,6 +103,18 @@ public class PseudoServer implements Server {
 		return CraftItemFactory.instance();
 	}
 
+	@NotNull
+	@Override
+	public UnsafeValues getUnsafe() {
+		return CraftMagicNumbers.INSTANCE;
+	}
+
+	@NotNull
+	@Override
+	public BlockData createBlockData(@NotNull final Material material) {
+		return CraftBlockData.newData(material, null);
+	}
+
 	// ------------------------------------------------------------
 	// Not implemented
 	// ------------------------------------------------------------
@@ -103,25 +122,25 @@ public class PseudoServer implements Server {
 	@NotNull
 	@Override
 	public String getName() {
-		return "";
+		return getClass().getSimpleName();
 	}
 
 	@NotNull
 	@Override
 	public String getVersion() {
-		return "";
+		return getClass().getPackage().getImplementationVersion();
 	}
 
 	@NotNull
 	@Override
 	public String getBukkitVersion() {
-		return "";
+		return Versioning.getBukkitVersion();
 	}
 
 	@NotNull
 	@Override
 	public String getMinecraftVersion() {
-		return "";
+		return SharedConstants.getGameVersion().getName();
 	}
 
 	@NotNull
@@ -332,8 +351,9 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
+	@Nullable
 	@Override
-	public @Nullable World getWorld(@NotNull final NamespacedKey namespacedKey) {
+	public World getWorld(@NotNull final NamespacedKey namespacedKey) {
 		throw new NotImplementedException();
 	}
 
@@ -592,8 +612,9 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
+	@NotNull
 	@Override
-	public @NotNull Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, final int i, @NotNull final Component component) throws IllegalArgumentException {
+	public Inventory createInventory(@Nullable final InventoryHolder inventoryHolder, final int i, @NotNull final Component component) throws IllegalArgumentException {
 		throw new NotImplementedException();
 	}
 
@@ -603,8 +624,9 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
+	@NotNull
 	@Override
-	public @NotNull Merchant createMerchant(@Nullable final Component component) {
+	public Merchant createMerchant(@Nullable final Component component) {
 		throw new NotImplementedException();
 	}
 
@@ -790,12 +812,6 @@ public class PseudoServer implements Server {
 
 	@NotNull
 	@Override
-	public BlockData createBlockData(@NotNull final Material material) {
-		throw new NotImplementedException();
-	}
-
-	@NotNull
-	@Override
 	public BlockData createBlockData(@NotNull final Material material, @Nullable final Consumer<BlockData> consumer) {
 		throw new NotImplementedException();
 	}
@@ -832,12 +848,6 @@ public class PseudoServer implements Server {
 	@NotNull
 	@Override
 	public List<Entity> selectEntities(@NotNull final CommandSender commandSender, @NotNull final String s) throws IllegalArgumentException {
-		throw new NotImplementedException();
-	}
-
-	@NotNull
-	@Override
-	public UnsafeValues getUnsafe() {
 		throw new NotImplementedException();
 	}
 
@@ -902,8 +912,9 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
+	@NotNull
 	@Override
-	public @NotNull DatapackManager getDatapackManager() {
+	public DatapackManager getDatapackManager() {
 		return null;
 	}
 
@@ -918,8 +929,9 @@ public class PseudoServer implements Server {
 		throw new NotImplementedException();
 	}
 
+	@NotNull
 	@Override
-	public @NonNull Iterable<? extends Audience> audiences() {
+	public Iterable<? extends Audience> audiences() {
 		throw new NotImplementedException();
 	}
 
