@@ -1,22 +1,16 @@
 package vg.civcraft.mc.civmodcore.config;
 
-import com.google.common.base.Strings;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
 import java.util.logging.Logger;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
-import vg.civcraft.mc.civmodcore.inventory.items.MaterialUtils;
 
 /**
  * This is a config parsing class intended to make handling configs a little easier, and automatically parse commonly
  * seen things within civ configs.
  */
-public class ConfigParser {
+public abstract class ConfigParser {
 
 	protected final Plugin plugin;
 	protected final Logger logger;
@@ -46,7 +40,7 @@ public class ConfigParser {
 		this.logReplies = config.getBoolean("logReplies", false);
 		this.logger.info("Logging replies: " + (this.logReplies ? "enabled" : "disabled"));
 		// Allow child class parsing
-		boolean worked = parseInternal(config);
+		final boolean worked = parseInternal(config);
 		if (worked) {
 			this.logger.info(ChatColor.BLUE + "Config parsed.");
 		}
@@ -57,14 +51,12 @@ public class ConfigParser {
 	}
 
 	/**
-	 * An internal parser method intended to be overriden by child classes.
+	 * An internal parser method intended to be overridden by child classes.
 	 *
 	 * @param config The root config section.
 	 * @return Return true if the
 	 */
-	protected boolean parseInternal(ConfigurationSection config) {
-		return true;
-	}
+	protected abstract boolean parseInternal(final ConfigurationSection config);
 
 	/**
 	 * This should reset all config values back to their defaults. Child classes should override this if they parse
@@ -85,54 +77,6 @@ public class ConfigParser {
 
 	public final boolean logReplies() {
 		return this.logReplies;
-	}
-
-	// ------------------------------------------------------------ //
-	// Predefined parsing utilities
-	// ------------------------------------------------------------ //
-
-	/**
-	 * Attempts to retrieve a list of materials from a config section.
-	 *
-	 * @param config The config section.
-	 * @param key The key of the list.
-	 * @return Returns a list of materials, or null.
-	 */
-	protected final List<Material> parseMaterialList(final ConfigurationSection config,
-													 final String key) {
-		return parseList(config, key, slug -> {
-			Material found = MaterialUtils.getMaterial(slug);
-			if (found == null) {
-				this.logger.warning("Could not parse material \"" + slug + "\" at: " + config.getCurrentPath());
-				return null;
-			}
-			return found;
-		});
-	}
-
-	/**
-	 * Attempts to retrieve a list from a config section.
-	 *
-	 * @param <T> The type to parse the list into.
-	 * @param config The config section.
-	 * @param key The key of the list.
-	 * @param parser The parser to convert the string value into the correct type.
-	 * @return Returns a list, or null.
-	 */
-	protected static <T> List<T> parseList(final ConfigurationSection config,
-										   final String key,
-										   final Function<String, T> parser) {
-		if (config == null || Strings.isNullOrEmpty(key) || !config.isList(key) || parser == null) {
-			return null;
-		}
-		List<T> result = new ArrayList<>();
-		for (String entry : config.getStringList(key)) {
-			T item = parser.apply(entry);
-			if (item != null) {
-				result.add(item);
-			}
-		}
-		return result;
 	}
 
 }
