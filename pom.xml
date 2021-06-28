@@ -9,7 +9,6 @@
     <version>1.0.1</version>
   </parent>
 
-  <groupId>vg.civcraft.mc.civmodcore</groupId>
   <artifactId>CivModCore</artifactId>
   <version>1.9.0</version>
   <name>CivModCore</name>
