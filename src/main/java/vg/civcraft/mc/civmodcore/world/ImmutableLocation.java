@@ -1,15 +1,16 @@
 package vg.civcraft.mc.civmodcore.world;
 
+import java.util.Map;
 import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.apache.commons.lang3.NotImplementedException;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.configuration.serialization.DelegateDeserialization;
+import org.bukkit.util.NumberConversions;
 import org.bukkit.util.Vector;
 
-@DelegateDeserialization(Location.class)
 public class ImmutableLocation extends Location {
 
 	private static final String IMMUTABLE_LOCATION_ERROR = "This location is immutable";
@@ -138,6 +139,23 @@ public class ImmutableLocation extends Location {
 	@Nonnull
 	public Location subtract(@Nonnull final Location base, final double x, final double y, final double z) {
 		throw new NotImplementedException(IMMUTABLE_LOCATION_ERROR);
+	}
+
+	@Nonnull
+	public static Location deserialize(@Nonnull final Map<String, Object> args) {
+		World world = null;
+		if (args.containsKey("world")) {
+			world = Bukkit.getWorld((String) args.get("world"));
+			if (world == null) {
+				throw new IllegalArgumentException("unknown world");
+			}
+		}
+		return new ImmutableLocation(world,
+				NumberConversions.toDouble(args.get("x")),
+				NumberConversions.toDouble(args.get("y")),
+				NumberConversions.toDouble(args.get("z")),
+				NumberConversions.toFloat(args.get("yaw")),
+				NumberConversions.toFloat(args.get("pitch")));
 	}
 
 }
