@@ -1,5 +1,6 @@
 package vg.civcraft.mc.civmodcore.dao;
 
+import java.sql.SQLException;
 import javax.annotation.Nonnull;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -34,7 +35,7 @@ public interface DatabaseMigration {
 	 *
 	 * @return Returns whether the callback completed successfully.
 	 */
-	default boolean migrationCallback() {
+	default boolean migrationCallback(@Nonnull final ManagedDatasource datasource) throws SQLException {
 		return true;
 	}
 
@@ -48,7 +49,7 @@ public interface DatabaseMigration {
 		}
 		datasource.registerMigration(getMigrationId(),
 				shouldIgnoreErrors(),
-				this::migrationCallback,
+				() -> migrationCallback(datasource),
 				queries);
 	}
 
