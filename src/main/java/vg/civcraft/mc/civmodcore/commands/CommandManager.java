@@ -19,7 +19,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
 import javax.annotation.Nonnull;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -70,21 +69,18 @@ public class CommandManager extends BukkitCommandManager {
 	 *                    {@link #getCommandCompletions()}.
 	 */
     public void registerCompletions(@Nonnull final CommandCompletions<BukkitCommandCompletionContext> completions) {
-		completions.registerAsyncCompletion("allplayers", context ->
+		completions.registerAsyncCompletion("allplayers", (context) ->
 				Arrays.stream(Bukkit.getOfflinePlayers())
 						.map(OfflinePlayer::getName)
-						.filter(name -> StringUtils.startsWithIgnoreCase(name, context.getInput()))
 						.toList());
-		completions.registerAsyncCompletion("materials", context ->
+		completions.registerAsyncCompletion("materials", (context) ->
 				Arrays.stream(Material.values())
 						.map(Enum::name)
-						.filter((name) -> StringUtils.startsWithIgnoreCase(name, context.getInput()))
 						.toList());
-		completions.registerAsyncCompletion("itemMaterials", context ->
+		completions.registerAsyncCompletion("itemMaterials", (context) ->
 				Arrays.stream(Material.values())
 						.filter(ItemUtils::isValidItemMaterial)
 						.map(Enum::name)
-						.filter((name) -> StringUtils.startsWithIgnoreCase(name, context.getInput()))
 						.toList());
 	}
 
@@ -140,7 +136,7 @@ public class CommandManager extends BukkitCommandManager {
 		}
 		for (final TabComplete complete : getTabCompletions(command.getClass()).values()) {
 			internal.remove(complete.value().toLowerCase(Locale.ENGLISH));
-			this.logger.info("Command Completer [" + complete.value() + "] deregistered.");
+			this.logger.info("Command Completer [" + complete.value() + "] unregistered.");
 		}
 	}
 
@@ -195,8 +191,16 @@ public class CommandManager extends BukkitCommandManager {
 			if (!List.class.isAssignableFrom(method.getReturnType())) {
 				continue;
 			}
-			if (method.getParameterCount() > 1) {
-				continue;
+			// TODO add a generic type check here when possible
+			switch (method.getParameterCount()) {
+				case 0:
+					break;
+				case 1:
+					if (BukkitCommandCompletionContext.class.isAssignableFrom(method.getParameterTypes()[0])) {
+						break;
+					}
+				default:
+					continue;
 			}
 			final TabComplete tabComplete = method.getAnnotation(TabComplete.class);
 			if (tabComplete == null) {
