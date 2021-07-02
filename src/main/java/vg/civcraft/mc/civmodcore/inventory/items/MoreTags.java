@@ -180,6 +180,44 @@ public final class MoreTags {
 					.add(Material.NETHERITE_SCRAP)
 					.build());
 
+	public static final Tag<Material> LIGHTABLE_CANDLES = new BetterTag<>("lightable_candles",
+			ImmutableSet.<Material>builder()
+					.add(Material.CANDLE)
+					.add(Material.CANDLE_CAKE)
+					.add(Material.CYAN_CANDLE)
+					.add(Material.CYAN_CANDLE_CAKE)
+					.add(Material.BLACK_CANDLE)
+					.add(Material.BLACK_CANDLE_CAKE)
+					.add(Material.BLUE_CANDLE)
+					.add(Material.BLUE_CANDLE_CAKE)
+					.add(Material.BROWN_CANDLE)
+					.add(Material.BROWN_CANDLE_CAKE)
+					.add(Material.GRAY_CANDLE)
+					.add(Material.GRAY_CANDLE_CAKE)
+					.add(Material.GREEN_CANDLE)
+					.add(Material.GREEN_CANDLE_CAKE)
+					.add(Material.LIGHT_BLUE_CANDLE)
+					.add(Material.LIGHT_BLUE_CANDLE_CAKE)
+					.add(Material.LIGHT_GRAY_CANDLE)
+					.add(Material.LIGHT_GRAY_CANDLE_CAKE)
+					.add(Material.LIME_CANDLE)
+					.add(Material.LIME_CANDLE_CAKE)
+					.add(Material.MAGENTA_CANDLE)
+					.add(Material.MAGENTA_CANDLE_CAKE)
+					.add(Material.ORANGE_CANDLE)
+					.add(Material.ORANGE_CANDLE_CAKE)
+					.add(Material.PINK_CANDLE)
+					.add(Material.PINK_CANDLE_CAKE)
+					.add(Material.PURPLE_CANDLE)
+					.add(Material.PURPLE_CANDLE_CAKE)
+					.add(Material.RED_CANDLE)
+					.add(Material.RED_CANDLE_CAKE)
+					.add(Material.WHITE_CANDLE)
+					.add(Material.WHITE_CANDLE_CAKE)
+					.add(Material.YELLOW_CANDLE)
+					.add(Material.YELLOW_CANDLE_CAKE)
+					.build());
+
 	// ------------------------------------------------------------
 	// Better Tag class to allow for easy Tag creation.
 	// ------------------------------------------------------------
