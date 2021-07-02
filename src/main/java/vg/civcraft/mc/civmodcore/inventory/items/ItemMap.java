@@ -147,7 +147,7 @@ public class ItemMap {
 	 * @param input ItemStack to insert
 	 */
 	public void addItemStack(final ItemStack input) {
-		if (!ItemUtils.isValidItem(input)) {
+		if (!ItemUtils.isValidItemIgnoringAmount(input)) {
 			return;
 		}
 		this.items.computeInt(INTERNAL_createKey(input), (key, amount) ->
