@@ -43,7 +43,6 @@ public final class CivModCorePlugin extends ACivMod {
 	@Override
 	public void onEnable() {
 		instance = this;
-		ConfigurationSerialization.registerClass(ManagedDatasource.class);
 		// Save default resources
 		saveDefaultResource("enchants.yml");
 		saveDefaultResource("materials.yml");
@@ -113,7 +112,6 @@ public final class CivModCorePlugin extends ACivMod {
 		DialogManager.resetDialogs();
 		WorldTracker.reset();
 		PlayerSettingAPI.saveAll();
-		ConfigurationSerialization.unregisterClass(ManagedDatasource.class);
 		if (this.commands != null) {
 			this.commands.reset();
 			this.commands = null;
