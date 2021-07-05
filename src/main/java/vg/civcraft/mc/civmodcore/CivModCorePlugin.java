@@ -110,7 +110,6 @@ public final class CivModCorePlugin extends ACivMod {
 		}
 		DialogManager.resetDialogs();
 		WorldTracker.reset();
-		ConfigurationSerialization.unregisterClass(ManagedDatasource.class);
 		if (this.commands != null) {
 			this.commands.reset();
 			this.commands = null;
