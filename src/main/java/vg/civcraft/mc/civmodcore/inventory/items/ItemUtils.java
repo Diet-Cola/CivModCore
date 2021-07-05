@@ -99,19 +99,6 @@ public final class ItemUtils {
 
 	/**
 	 * Checks if an ItemStack is valid. An ItemStack is considered valid if when added to an inventory, it shows as an
-	 * item with an amount greater than 0.
-	 *
-	 * @param item The item to validate.
-	 * @return Returns true if the item is valid.
-	 */
-	public static boolean isValidItemIgnoringAmount(final ItemStack item) {
-		return item != null
-				&& isValidItemMaterial(item.getType())
-				&& item.getAmount() > 0;
-	}
-
-	/**
-	 * Checks if an ItemStack is valid. An ItemStack is considered valid if when added to an inventory, it shows as an
 	 * item with an amount within appropriate bounds. Therefore {@code new ItemStack(Material.AIR)} will not be
 	 * considered valid, nor will {@code new ItemStack(Material.STONE, 80)}
 	 *
